@@ -7,7 +7,7 @@ function sendEmailNotification(string $email, string $message): void
     return;
   }
 
-  $subject = "Уведомление о выполнении задачи";
+  $subject = "Task completion notification";
   $headers = "From: no-reply@example.com\r\n";
   $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 

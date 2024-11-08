@@ -23,12 +23,12 @@ class TaskManager
       $result = $this->executeTask($task['api_url'], $task['request_body']);
 
       $status = $result ? 'completed' : 'canceled';
-      $status_description = $result ? 'Задача выполнена успешно.' : 'Ошибка при выполнении задачи.';
+      $status_description = $result ? 'The task was completed successfully' : 'Error while executing task';
 
       updateTaskStatus($this->database, $task['id'], $status, $status_description);
 
       if (!$result) {
-        logError($this->database, $task['id'], 'Ошибка при выполнении запроса');
+        logError($this->database, $task['id'], 'Error while executing task');
       }
     }
   }
@@ -44,7 +44,7 @@ class TaskManager
       $response = curl_exec($ch);
 
       if (curl_errno($ch)) {
-        throw new Exception('Ошибка выполнения запроса: ' . curl_error($ch));
+        throw new Exception('Error while executing task: ' . curl_error($ch));
       }
 
       curl_close($ch);
