@@ -1,0 +1,18 @@
+CREATE TABLE `tasks` ( 
+  `id` INT(11) NOT NULL AUTO_INCREMENT , 
+  `request_body` VARCHAR(5000) NOT NULL , 
+  `api_url` VARCHAR(255) NOT NULL , 
+  `execution_date` DATETIME NOT NULL , 
+  `status` ENUM('pending', 'completed', 'canceled', 'paused') NOT NULL DEFAULT 'pending' , 
+  `status_description` VARCHAR(5000) NOT NULL , 
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `logs` ( 
+  `id` INT(11) NOT NULL AUTO_INCREMENT , 
+  `task_id` INT NOT NULL , 
+  `error_message` VARCHAR(9000) NOT NULL , 
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+PRIMARY KEY (`id`), INDEX `task_id` (`task_id`)) ENGINE = InnoDB;
+
+ALTER TABLE `logs` ADD CONSTRAINT `fk_task_id` FOREIGN KEY (`task_id`) REFERENCES `tasks`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
